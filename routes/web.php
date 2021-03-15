@@ -11,9 +11,9 @@
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-});*/
+});
 
 //后台登录页面
 Route::get('admin/login','Admin\LoginController@index');
