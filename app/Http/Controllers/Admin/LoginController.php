@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\AdminModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -23,6 +25,52 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /*
+     * 登录
+     * */
+    public function login(Request $request){
+
+        //cuznv 123456
+        $name = trim($request->input('name'));
+        $pwd = trim($request->input('password'));
+        $code = trim($request->input('code'));
+
+        //验证码
+        $rule = ['code'=>'captcha'];
+        $message = [
+            'code.captcha'=>'验证码输入不正确'
+        ];
+        $validator = Validator::make([
+            'code'=>$code
+        ],$rule,$message);
+        if($validator->fails()){
+            $msg = $validator->errors()->first();
+            //todo:return response(['msg'=>$msg,'status'=>0]);
+        }
+
+        //验证密码
+        $adminModel = new AdminModel();
+        $ret = $adminModel->checkLogin($name,$pwd);
+
+        //成功记录用户信息
+        if(1==$ret['status']){
+            session(['username'=>$name]);
+        }
+
+        return response(['status'=>1,'msg'=>'登录成功']);
+    }
+
+
+    //登出
+    public function logout(){
+
+        //todo:用户应该有token，否则谁都能退出
+        session(['username'=>null]);
+        return redirect('admin/login');
+
+    }
+
     public function create()
     {
         //

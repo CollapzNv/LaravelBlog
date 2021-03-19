@@ -3,13 +3,13 @@ input,select,textarea{color:#333;}
 .bg{ width:100%; height:100%; position:absolute; background:url(../images/bg.jpg) }
 .panel{background:#fff;}
 form .form-group:last-child{padding-bottom:0;}
-.passcode{position:absolute;right:0;bottom:0;height:32px;margin:1px;border-left:solid 1px #ddd;text-align:center;line-height:32px;border-radius:0 4px 4px 0;}
+.passcode{position:absolute;right:0;bottom:21px;height:32px;margin:1px;border-left:solid 1px #ddd;text-align:center;line-height:32px;border-radius:0 4px 4px 0;}
 ul,li{ list-style-type:none;}
 
 .lefter{position:relative;float:left;width:180px;margin-right:-180px;background:#e6f2fb;text-align:center;}
 .righter{float:right;width:100%;padding-top:15px;background:#e6f2fb;}
 .mainer{margin-left:180px;}
-.field-icon-right .icon{ bottom:0px; top:auto}
+.field-icon-right .icon{ bottom:20px; top:auto}
 .logo{ float:left; color:#FFF; margin-top:10px; line-height:45px;}
 .logo img{ float:left; margin-right:10px;}
 .loginbox { background:url(../images/tmbg-white.png); border:0px;}

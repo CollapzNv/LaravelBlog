@@ -17,9 +17,10 @@ Route::get('/', function () {
 
 //后台登录页面
 Route::get('admin/login','Admin\LoginController@index');
+Route::post('admin/toLogin','Admin\LoginController@login');
 
 //后台主页
-Route::get('admin/index','Admin\IndexController@index');
+Route::get('admin/index','Admin\IndexController@index')->middleware('login');
 
 
 //网站设置
