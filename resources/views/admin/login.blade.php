@@ -7,8 +7,8 @@
     <div class="line bouncein">
         <div class="xs6 xm4 xs3-move xm4-move">
             <div style="height:150px;"></div>
-            <div class="media media-y margin-big-bottom">           
-            </div>         
+            <div class="media media-y margin-big-bottom">
+            </div>
             <form action="{{url('admin/toLogin')}}" method="post" class="adminLogin">
                 {{csrf_field()}}
             <div class="panel loginbox">
@@ -30,13 +30,13 @@
                         <div class="field">
                             <input type="text" class="input input-big" name="code" placeholder="填写右侧的验证码" datatype="s4-4" {{--data-validate="required:请填写右侧的验证码"--}} />
                            <img src="{{captcha_src()}}" alt="" width="100" height="32" class="passcode" style="height:43px;cursor:pointer;" onclick="this.src=this.src+'?'">
-                                                   
+
                         </div>
                     </div>
                 </div>
                 <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" value="登录"></div>
             </div>
-            </form>          
+            </form>
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@
             callback:function(res){
                 if(res.status==0){
                     layer.msg(res.msg,{icon:2})
-                }else{
+                }else if(res.status==1){
                     layer.msg(res.msg,{time:2000,icon:1},function () {
                         location.href = "{{url('admin/index')}}"
                     });

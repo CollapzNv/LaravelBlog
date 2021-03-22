@@ -53,11 +53,12 @@ class LoginController extends Controller
         $adminModel = new AdminModel();
         $ret = $adminModel->checkLogin($name,$pwd);
 
-        //成功记录用户信息
-        if(1==$ret['status']){
-            session(['username'=>$name]);
-        }
 
+        if(0==$ret['status']){
+            return response(['status'=>0,'msg'=>$ret['msg']]);
+        }
+        //成功记录用户信息
+        session(['username'=>$name]);
         return response(['status'=>1,'msg'=>'登录成功']);
     }
 
@@ -69,6 +70,23 @@ class LoginController extends Controller
         session(['username'=>null]);
         return redirect('admin/login');
 
+    }
+
+    //检查原始密码 - ajax
+    public function checkPass(Request $request){
+
+        //cuznv 123456
+        $name = session('username');
+        $pwd = trim($request->input('param'));
+        //验证密码
+        $adminModel = new AdminModel();
+        $ret = $adminModel->checkLogin($name,$pwd);
+
+        if(0==$ret['status']){
+            return response(['status'=>'n','info'=>'密码错误']);
+        }else if(1==$ret['status']){
+            return response(['status'=>'y','info'=>'正确']);
+        }
     }
 
     public function create()

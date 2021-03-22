@@ -18,6 +18,8 @@ Route::get('/', function () {
 //后台登录页面
 Route::get('admin/login','Admin\LoginController@index');
 Route::post('admin/toLogin','Admin\LoginController@login');
+Route::get('admin/toLogout','Admin\LoginController@logout');
+Route::post('admin/checkPass','Admin\LoginController@checkPass')->middleware('login');;
 
 //后台主页
 Route::get('admin/index','Admin\IndexController@index')->middleware('login');
@@ -40,5 +42,9 @@ Route::resource('admin/article','Admin\ArticleController');//资源路由不用�
 Route::resource('admin/cate','Admin\CateController');//资源路由不用加index
 
 //用户管理
-Route::get('admin/pass','Admin\UserController@pass');
+
+//修改密码页面+修改密码
+Route::match(['get','post'],'admin/pass','Admin\UserController@pass');
+
 Route::get('admin/user','Admin\UserController@index');
+

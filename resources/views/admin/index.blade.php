@@ -6,7 +6,9 @@
   <div class="logo margin-big-left fadein-top">
     <h1><img src="images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
   </div>
-  <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;<a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="login.html"><span class="icon-power-off"></span> 退出登录</a> </div>
+  <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;
+      &nbsp;<a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a>
+      &nbsp;&nbsp;<a class="button button-little bg-red" href="{{url('admin/toLogout')}}"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
 <div class="leftnav">
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
@@ -16,29 +18,29 @@
     <li><a href="{{url('admin/image')}}" target="right"><span class="icon-caret-right"></span>首页轮播</a></li>
     <li><a href="{{url('admin/comment')}}" target="right"><span class="icon-caret-right"></span>留言管理</a></li>
 
-  </ul>   
+  </ul>
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
     <li><a href="{{url('admin/article')}}" target="right"><span class="icon-caret-right"></span>内容管理</a></li>
     <li><a href="{{url('admin/article/create')}}" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
     {{--<li><a href="cate.html" target="right"><span class="icon-caret-right"></span>分类管理</a></li> --}}
-  </ul>  
+  </ul>
   <h2><span class="icon-pencil-square-o"></span>用户管理</h2>
   <ul>
      <li><a href="{{url('admin/pass')}}" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
     <li><a href="{{url('admin/user')}}" target="right"><span class="icon-caret-right"></span>用户列表</a></li>
-  </ul> 
+  </ul>
  <h2><span class="icon-pencil-square-o"></span>分类管理</h2>
   <ul>
      <li><a href="{{url('admin/cate')}}" target="right"><span class="icon-caret-right"></span>分类列表</a></li>
     <li><a href="{{url('admin/cate/create')}}" target="right"><span class="icon-caret-right"></span>分类添加</a></li>
-  </ul>    
+  </ul>
 </div>
 <script type="text/javascript">
 $(function(){
   $(".leftnav h2").click(function(){
-	  $(this).next().slideToggle(200);	
-	  $(this).toggleClass("on"); 
+	  $(this).next().slideToggle(200);
+	  $(this).toggleClass("on");
   })
   $(".leftnav ul li a").click(function(){
 	    $("#a_leader_txt").text($(this).text());

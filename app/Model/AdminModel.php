@@ -18,4 +18,27 @@ class AdminModel extends Model
 
         return ['status'=>1,'msg'=>'验证成功'];
     }
+
+
+    //更新密码
+    public function updatePass($name,$pwd,$newpwd){
+
+        $res =$this->checkLogin($name,$pwd);
+        if(0==$res['status']){ return ['status'=>0,'msg'=>'用户错误，更新失败'];}
+
+
+        $salt = str_random(6);
+        $new_pass = md5($newpwd.$salt);
+        $udpate = [
+            'pass'=>$new_pass,
+            'salt'=>$salt,
+        ];
+
+        $ret = self::where('name',$name)->update($udpate);
+        if(false===$ret['status']) {
+            return ['status' => 0, 'msg' => '更新失败'];
+        }
+
+        return ['status'=>1,'msg'=>'更新成功'];
+    }
 }
