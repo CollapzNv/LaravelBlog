@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="{{asset('lib/Validform/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('admin/css/pintuer.css')}}">
     <link rel="stylesheet" href="{{asset('admin/css/admin.css')}}">
+    <link rel="stylesheet" href="{{asset('lib/webuploader/webuploader.css')}}">
     <script src="{{asset('admin/js/jquery.js')}}"></script>
     <script src="{{asset('lib/Validform/js/Validform_v5.3.2_min.js')}}"></script>
     <script src="{{asset('admin/js/pintuer.js')}}"></script>
     <script src="{{asset('lib/Layer/layer.js')}}"></script>
+    <script src="{{asset('lib/webuploader/webuploader.min.js')}}"></script>
 </head>
 @section('content')
 

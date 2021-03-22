@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\SystemModel;
 
 class SystemController extends Controller
 {
@@ -15,8 +16,37 @@ class SystemController extends Controller
     public function index()
     {
         //
-        return view('admin.system.index');
+        $system = new SystemModel();
+        $data = $system->getSetting();
+
+        return view('admin.system.index',['setting'=>$data]);
     }
+
+    //修改
+    public function edit()
+    {
+        //
+        $system = new SystemModel();
+        $data = $system->getSetting();
+
+        return view('admin.system.edit',['setting'=>$data]);
+    }
+
+
+    //更新
+    public function update(Request $request)
+    {
+        //
+        $data = $request->except('_token');
+
+        $system = new SystemModel();
+        $ret = $system->updateSetting($data);
+        if(0==$ret['status']){
+            return response(['status'=>0,'msg'=>'修改失败']);
+        }
+        return response(['status'=>1,'msg'=>'修改成功']);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -56,22 +86,11 @@ class SystemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+/*    public function edit($id)
     {
         //
-    }
+    }*/
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

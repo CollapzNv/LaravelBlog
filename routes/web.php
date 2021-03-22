@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 //后台登录页面
 Route::get('admin/login','Admin\LoginController@index');
@@ -26,11 +26,17 @@ Route::get('admin/index','Admin\IndexController@index')->middleware('login');
 
 
 //网站设置
-Route::get('admin/system','Admin\SystemController@index');
+Route::get('admin/system','Admin\SystemController@index')->middleware('login');
+//网站设置-修改
+Route::get('admin/system/edit','Admin\SystemController@edit')->middleware('login');
+Route::post('admin/system/update','Admin\SystemController@update')->middleware('login');
 
 
 //网站幻灯片
-Route::resource('admin/image','Admin\ImageController');//资源路由不用加index
+Route::resource('admin/image','Admin\ImageController')->middleware('login');//资源路由不用加index
+//上传图片
+Route::post('admin/upload','Admin\ImageController@upload');
+
 
 //留言管理
 Route::get('admin/comment','Admin\CommentController@index');
@@ -48,3 +54,7 @@ Route::match(['get','post'],'admin/pass','Admin\UserController@pass');
 
 Route::get('admin/user','Admin\UserController@index');
 
+
+
+/*前台首页*/
+Route::get('/','Home\IndexController@index');

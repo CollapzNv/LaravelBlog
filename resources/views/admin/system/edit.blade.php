@@ -5,13 +5,14 @@
 <div class="panel admin-panel">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="">
+    <form method="post" class="form-x" action="javascript:;">
+      <input type="hidden" name="sid" value="{{$setting['id']}}" />
       <div class="form-group">
         <div class="label">
           <label>网站标题：</label>
         </div>
         <div class="field">
-          <input type="text" class="input" name="stitle" value="{{$setting['title']}}" disabled/>
+          <input type="text" class="input" name="stitle" value="{{$setting['title']}}" />
           <div class="tips"></div>
         </div>
       </div>
@@ -29,7 +30,7 @@
           <label>网站域名：</label>
         </div>
         <div class="field">
-          <input type="text" class="input" name="surl" value="{{$setting['url']}}" disabled/>
+          <input type="text" class="input" name="surl" value="{{$setting['url']}}" />
         </div>
       </div>
       <div class="form-group">
@@ -37,15 +38,24 @@
           <label>作者：</label>
         </div>
         <div class="field">
-          <input type="text" class="input" name="sauthor" disabled value="{{$setting['author']}}" />
+          <input type="text" class="input" name="sauthor" value="{{$setting['author']}}" />
         </div>
       </div>
+      {{--<div class="form-group" style="display:none">
+        <div class="label">
+          <label>副加标题：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="sentitle" value="{{$setting['title']}}" />
+          <div class="tips"></div>
+        </div>
+      </div>--}}
       <div class="form-group">
         <div class="label">
           <label>网站关键字：</label>
         </div>
         <div class="field">
-          <textarea class="input" name="skeywords" style="height:80px" disabled>{{$setting['keywords']}}</textarea>
+          <textarea class="input" name="skeywords" style="height:80px" >{{$setting['keywords']}}</textarea>
           <div class="tips"></div>
         </div>
       </div>
@@ -54,7 +64,7 @@
           <label>网站描述：</label>
         </div>
         <div class="field">
-          <textarea class="input" name="sdescription" disabled>{{$setting['desc']}}</textarea>
+          <textarea class="input" name="sdescription" >{{$setting['desc']}}</textarea>
           <div class="tips"></div>
         </div>
       </div>
@@ -146,7 +156,7 @@
           <label>底部信息：</label>
         </div>
         <div class="field">
-          <textarea name="scopyright" class="input" style="height:120px;" disabled>{{$setting['footer']}}</textarea>
+          <textarea name="scopyright" class="input" style="height:120px;" >{{$setting['footer']}}</textarea>
           <div class="tips"></div>
         </div>
       </div>
@@ -155,12 +165,42 @@
           <label></label>
         </div>
         <div class="field">
-          <a class="button bg-main icon-check-square-o" href="{{url('admin/system/edit')}}"> 修改</a>
+          <button class="button bg-main icon-check-square-o " type="button" id="mySubmit"> 提交</button>
         </div>
       </div>
     </form>
   </div>
 </div>
 </body>
+<script>
+  $("#mySubmit").click(function () {
+      $.ajax({
+          type: 'POST',
+          async:true,
+          data: {
+              id:$("input[name='sid']").val(),
+              title:$("input[name='stitle']").val(),
+              url:$("input[name='surl']").val(),
+              author:$("input[name='sauthor']").val(),
+              keywords:$("textarea[name='skeywords']").html(),
+              desc:$("textarea[name='sdescription']").html(),
+              footer:$("textarea[name='scopyright']").html(),
+              _token:"{{csrf_token()}}",
+          },
+          url: "{{url('admin/system/update')}}",
+          success: function (ret) {
+              if(ret.status==0){
+                  layer.msg(ret.msg,{icon:2})
+              }else if(ret.status==1){
+                  layer.msg(ret.msg,{time:2000,icon:1},function () {
+                      location.href="{{url('admin/system')}}";
+                  });
 
+              }
+          }
+      });
+  })
+
+
+</script>
 @endsection

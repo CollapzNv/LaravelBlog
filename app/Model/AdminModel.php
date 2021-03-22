@@ -35,7 +35,7 @@ class AdminModel extends Model
         ];
 
         $ret = self::where('name',$name)->update($udpate);
-        if(false===$ret['status']) {
+        if(false===$ret) {
             return ['status' => 0, 'msg' => '更新失败'];
         }
 
