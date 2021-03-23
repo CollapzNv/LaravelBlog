@@ -39,4 +39,14 @@ class ImageModel extends Model
 
         return ['status'=>1,'msg'=>'更新成功'];
     }
+
+    //删除指定轮播图
+    public function delOne($id){
+        $res = self::destroy($id);
+        if(false===$res) {
+            return ['status' => 0, 'msg' => '删除失败'];
+        }
+
+        return ['status'=>1,'msg'=>'删除成功'];
+    }
 }

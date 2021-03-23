@@ -7,6 +7,7 @@
   <div class="padding border-bottom">  
   <button type="button" class="button border-yellow" onclick="window.location.href='{{url('admin/image/create')}}'"><span class="icon-plus-square-o"></span> 添加内容</button>
   </div>
+  @if(!empty($image_list))
   <table class="table table-hover text-center">
     <tr>
       <th width="5%">ID</th>
@@ -28,7 +29,7 @@
       <td>{{$image['sort']}}</td>
       <td><div class="button-group">
       <a class="button border-main" href="{{url('admin/image/'.$image['id'].'/edit')}}"><span class="icon-edit"></span> 修改</a>
-      <a class="button border-red" href="javascript:void(0)" onclick="delImg($image['id'])"><span class="icon-trash-o"></span> 删除</a>
+      <a class="button border-red" href="javascript:void(0)" onclick="delImg({{$image['id']}})"><span class="icon-trash-o"></span> 删除</a>
       </div></td>
     </tr>
     @endforeach
@@ -56,6 +57,9 @@
     </tr>--}}
     
   </table>
+  @else
+  您还没有添加记录，请添加
+  @endif
 </div>
 <script type="text/javascript">
 /*function del(id,mid){
@@ -66,22 +70,23 @@
 function delImg(id){
     layer.confirm('确认删除吗？', function(index) {
         layer.close(index);
-        $.ajax("{{url('admin/image/')}}", {
-
-            id: data.action_id
-        }, function(res) {
-            if (res.code == 1) {
-                layer.msg(res.msg, {
-                    icon: 1,
-                    time: 1500
-                }, function() {
-                    obj.del();
-                })
-            } else {
-                layer.msg(res.msg, {
-                    icon: 2,
-                    time: 1500
-                })
+        $.ajax({
+            url: "{{url('admin/image')}}"+'/'+id,
+            type: 'DELETE',
+            async: true,
+            dataType: 'json',
+            data: {
+                id: id,
+                _token: "{{csrf_token()}}",
+            },
+            success: function (res) {
+                if(res.status==0){
+                    layer.msg(res.msg,{icon:2})
+                }else if(res.status==1){
+                    layer.msg(res.msg,{time:2000,icon:1},function () {
+                        window.parent.location.href = "{{url('admin/image')}}"
+                    });
+                }
             }
         });
     });

@@ -131,5 +131,11 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
+        $img = new ImageModel();
+        $ret = $img->delOne($id);
+        if(0==$ret['status']){
+            return response(['status'=>0,'msg'=>'删除失败']);
+        }
+        return response(['status'=>1,'msg'=>'删除成功']);
     }
 }

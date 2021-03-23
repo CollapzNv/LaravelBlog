@@ -110,7 +110,7 @@
         $( '#'+file.id ).addClass('upload-state-done');
     });
 
-    /*表单登录*/
+    /*表单推送*/
     $(".imageInsert").Validform({
         tiptype: 4,
         ajaxPost:true,
