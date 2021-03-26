@@ -57,8 +57,6 @@ class LoginController extends Controller
         if(0==$ret['status']){
             return response(['status'=>0,'msg'=>$ret['msg']]);
         }
-        //成功记录用户信息
-        session(['username'=>$name]);
         return response(['status'=>1,'msg'=>'登录成功']);
     }
 

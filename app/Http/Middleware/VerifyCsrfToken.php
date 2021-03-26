@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         "admin/checkPass",
+        "checkUser",
         "admin/upload",
 
     ];

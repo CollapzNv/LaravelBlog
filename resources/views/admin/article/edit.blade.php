@@ -5,36 +5,28 @@
     <script src="{{asset('lib/Ueditor/ueditor.all.min.js')}}"></script>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x articleInsert" action="{{url('admin/article')}}">
+    <form method="post" class="form-x articleInsert" action="{{url('admin/article/'.$article['id'])}}">
       {{csrf_field()}}
+      {{method_field('put')}}
       <div class="form-group">
         <div class="label">
           <label>文章标题：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="" name="title" data-validate="required:请输入标题" />
+          <input type="text" class="input w50" value="{{$article['title']}}" name="title" data-validate="required:请输入标题" />
           <div class="tips"></div>
         </div>
       </div>
 
-      <div class="clear"></div>
-      <div class="form-group">
-        <div class="label">
-          <label>关键字标题：</label>
-        </div>
-        <div class="field">
-          <input type="text" class="input w50" name="keywords" value="" />
-        </div>
-      </div>
+
 
       <div class="form-group">
         <div class="label">
           <label>作者：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" name="author" value=""  />
+          <input type="text" class="input w50" name="author" value="{{$article['author']}}"  />
           <div class="tips"></div>
         </div>
       </div>
@@ -53,8 +45,8 @@
             <!--用来存放item-->
             <div id="fileList" class="uploader-list"></div>
             <div id="filePicker">选择图片</div>
-            <input type="hidden" name="src" class="input tips" style="width:25%; float:left;"  value="" data-toggle="hover" data-place="right" data-image="" />
-            <img id="uploadImg">
+            <input type="hidden" name="img_url" class="input tips" style="width:25%; float:left;"  value="{{$article['img_url']}}" data-toggle="hover" data-place="right" data-image="" />
+            <img id="uploadImg" src="{{$article['img_url']}}">
           </div>
           <div class="tipss">图片尺寸：500*500</div>
         </div>
@@ -69,7 +61,7 @@
             <select name="cate_id" class="input w50">
               <option value="">请选择分类</option>
               @foreach($cates as $k=>$v)
-              <option value="{{$v['id']}}">{{$v['name']}}</option>
+              <option value="{{$v['id']}}" @if($v['id']==$article['cate_id']) selected @endif >{{$v['name']}}</option>
               @endforeach
             </select>
             <div class="tips"></div>
@@ -92,7 +84,7 @@
           <label>描述：</label>
         </div>
         <div class="field">
-          <textarea class="input w-50" name="desc" style=" height:90px;"></textarea>
+          <textarea class="input w-50" name="desc" style=" height:90px;">{{$article['desc']}}</textarea>
           <div class="tips"></div>
         </div>
       </div>
@@ -102,7 +94,7 @@
         </div>
         <div class="field">
             <script id="container" name="content" type="text/plain">
-                文章内容
+                {!!$article['content']!!}
             </script>
 
         </div>
@@ -123,7 +115,7 @@
           <label>关键字描述：</label>
         </div>
         <div class="field">
-          <textarea type="text" class="input" name="keywords"></textarea>
+          <textarea type="text" class="input" name="keywords" value="{{$article['keywords']}}"></textarea>
         </div>
       </div>
 
@@ -202,7 +194,7 @@
       // 文件上传成功，给item添加成功class, 用样式标记上传成功。
       uploader.on( 'uploadSuccess', function( file,res ) {
           //path = res.msg
-          $("input[name='src']").val('/'+res.msg);
+          $("input[name='img_url']").val('/'+res.msg);
           $("#uploadImg").attr('src','/'+res.msg);
 
           $( '#'+file.id ).addClass('upload-state-done');
@@ -217,7 +209,7 @@
                   layer.msg(res.msg,{icon:2})
               }else if(res.status==1){
                   layer.msg(res.msg,{time:2000,icon:1},function () {
-                      location.href = "{{url('admin/article/create')}}"
+                      location.href = "{{url('admin/article')}}"
                   });
 
               }

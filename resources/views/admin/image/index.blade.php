@@ -84,7 +84,7 @@ function delImg(id){
                     layer.msg(res.msg,{icon:2})
                 }else if(res.status==1){
                     layer.msg(res.msg,{time:2000,icon:1},function () {
-                        window.parent.location.href = "{{url('admin/image')}}"
+                        location.href = "{{url('admin/image')}}"
                     });
                 }
             }

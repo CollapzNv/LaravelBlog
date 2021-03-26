@@ -16,6 +16,8 @@ class AdminModel extends Model
 
         if(md5($pwd.$user['salt']) != $user['pass']){return ['status'=>0,'msg'=>'密码错误'];}
 
+        //成功记录用户信息
+        session(['username'=>$name]);
         return ['status'=>1,'msg'=>'验证成功'];
     }
 

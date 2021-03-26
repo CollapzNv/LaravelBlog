@@ -19,7 +19,7 @@
 Route::get('admin/login','Admin\LoginController@index');
 Route::post('admin/toLogin','Admin\LoginController@login');
 Route::get('admin/toLogout','Admin\LoginController@logout');
-Route::post('admin/checkPass','Admin\LoginController@checkPass')->middleware('login');;
+Route::post('admin/checkPass','Admin\LoginController@checkPass')->middleware('login');
 
 //后台主页
 Route::get('admin/index','Admin\IndexController@index')->middleware('login');
@@ -42,7 +42,7 @@ Route::post('admin/upload','Admin\ImageController@upload');
 Route::get('admin/comment','Admin\CommentController@index');
 
 //文章管理
-Route::resource('admin/article','Admin\ArticleController');//资源路由不用加index
+Route::resource('admin/article','Admin\ArticleController')->middleware('login');//资源路由不用加index
 
 //分类管理
 Route::resource('admin/cate','Admin\CateController');//资源路由不用加index
@@ -54,7 +54,24 @@ Route::match(['get','post'],'admin/pass','Admin\UserController@pass');
 
 Route::get('admin/user','Admin\UserController@index');
 
-
+//--------------------------以下为前台
 
 /*前台首页*/
 Route::get('/','Home\IndexController@index');
+
+//文章列表
+Route::get('article/index','Home\ArticleController@index');
+Route::get('article/detail/{id}','Home\ArticleController@detail')->where('id','\d+');
+
+//用户登录注册
+Route::match(['post','get'],'login','Home\UserController@login');
+Route::match(['post','get'],'register','Home\UserController@register');
+Route::get('logout','Home\UserController@logout');
+
+//检测用户名唯一性
+Route::post('checkUser','Home\UserController@checkUser');
+
+Route::get('cate/{id}','Home\CateController@index')->where('id','\d+');
+
+
+

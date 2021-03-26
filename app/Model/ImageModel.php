@@ -49,4 +49,10 @@ class ImageModel extends Model
 
         return ['status'=>1,'msg'=>'删除成功'];
     }
+
+    //获取幻灯片 5张
+    public function getSlideShow(){
+
+        return  $data =  self::where('src','<>','null')->select('url','src')->orderBy('sort','desc')->limit(5)->get()->toArray();
+    }
 }
